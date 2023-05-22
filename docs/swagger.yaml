@@ -1,0 +1,273 @@
+basePath: /
+definitions:
+  models.ResQueryBopp:
+    properties:
+      customer:
+        type: string
+      deal_date:
+        type: string
+      delivery_time:
+        type: string
+      density:
+        type: number
+      factory:
+        type: string
+      job_order:
+        type: string
+      level:
+        type: string
+      memo:
+        type: string
+      order_accessories:
+        items:
+          $ref: '#/definitions/repositories.OrderAccessory'
+        type: array
+      order_details:
+        items:
+          $ref: '#/definitions/repositories.OrderDetail'
+        type: array
+      other:
+        type: string
+      packing:
+        type: string
+      plate_size:
+        type: string
+      plate_type:
+        type: string
+      plate_wrapper:
+        type: string
+      produce_date:
+        type: string
+      quality:
+        type: string
+      roll_placement:
+        type: string
+      salesman:
+        type: string
+      scheme_date:
+        type: string
+      state:
+        type: string
+      trade_mode:
+        type: string
+      wrapper:
+        type: string
+      wrapper_memo:
+        type: string
+    type: object
+  models.Response:
+    properties:
+      content: {}
+      result:
+        type: integer
+      result_comment:
+        type: string
+    type: object
+  models.UpdateBoppOrder:
+    properties:
+      customer:
+        type: string
+      deal_date:
+        type: string
+      delivery_time:
+        type: string
+      density:
+        type: number
+      factory:
+        type: string
+      job_order:
+        type: string
+      level:
+        type: string
+      memo:
+        type: string
+      other:
+        type: string
+      packing:
+        type: string
+      plate_size:
+        type: string
+      plate_type:
+        type: string
+      plate_wrapper:
+        type: string
+      produce_date:
+        type: string
+      quality:
+        type: string
+      roll_placement:
+        type: string
+      salesman:
+        type: string
+      scheme_date:
+        type: string
+      state:
+        type: string
+      trade_mode:
+        type: string
+      wrapper:
+        type: string
+      wrapper_memo:
+        type: string
+    type: object
+  repositories.OrderAccessory:
+    properties:
+      accessory:
+        type: string
+      category:
+        type: string
+      job_order:
+        type: string
+    type: object
+  repositories.OrderDetail:
+    properties:
+      actual_length:
+        type: number
+      actual_thickness:
+        type: number
+      corona:
+        type: string
+      index:
+        type: integer
+      job_order:
+        type: string
+      length:
+        type: integer
+      rolls:
+        type: integer
+      scheme_rolls:
+        type: number
+      thickness:
+        type: string
+      type:
+        type: string
+      weight:
+        type: number
+      width:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: This is a Go-OA-Proxy server.
+  title: Go-OA-Proxy
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+      tags:
+      - /
+  /bopp:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: factory
+        type: string
+      - in: query
+        name: from
+        type: string
+      - in: query
+        name: job_order
+        type: string
+      - in: query
+        name: take
+        required: true
+        type: integer
+      - in: query
+        name: to
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResQueryBopp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: 查询
+      tags:
+      - BOPP
+  /bopp/{job_order}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: 通知单号
+        in: path
+        name: job_order
+        required: true
+        type: string
+      - description: 更新数据体
+        in: body
+        name: update_dto
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateBoppOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: 更新
+      tags:
+      - BOPP
+  /bopp/accessory/category:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: 查询辅材大类
+      tags:
+      - BOPP
+  /bopp/accessory/detail:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: 查询辅材明细
+      tags:
+      - BOPP
+swagger: "2.0"

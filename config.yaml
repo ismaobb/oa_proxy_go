@@ -1,0 +1,23 @@
+mode: debug
+port: 8000
+
+kl:
+  host: 192.168.21.206
+  port: 1433
+  username: sa
+  password: lijieru
+  database: RXSCALE_KL
+
+kc:
+  host: 192.168.21.206
+  port: 1433
+  username: sa
+  password: lijieru
+  database: RXSCALE_KL
+
+kw:
+  host: 192.168.21.206
+  port: 1433
+  username: sa
+  password: lijieru
+  database: RXSCALE_KL

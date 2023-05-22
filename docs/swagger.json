@@ -1,0 +1,420 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a Go-OA-Proxy server.",
+        "title": "Go-OA-Proxy",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "/"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/bopp": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BOPP"
+                ],
+                "summary": "查询",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "factory",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "job_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "take",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResQueryBopp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/bopp/accessory/category": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BOPP"
+                ],
+                "summary": "查询辅材大类",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/bopp/accessory/detail": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BOPP"
+                ],
+                "summary": "查询辅材明细",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/bopp/{job_order}": {
+            "patch": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BOPP"
+                ],
+                "summary": "更新",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "通知单号",
+                        "name": "job_order",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新数据体",
+                        "name": "update_dto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateBoppOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ResQueryBopp": {
+            "type": "object",
+            "properties": {
+                "customer": {
+                    "type": "string"
+                },
+                "deal_date": {
+                    "type": "string"
+                },
+                "delivery_time": {
+                    "type": "string"
+                },
+                "density": {
+                    "type": "number"
+                },
+                "factory": {
+                    "type": "string"
+                },
+                "job_order": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "order_accessories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repositories.OrderAccessory"
+                    }
+                },
+                "order_details": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repositories.OrderDetail"
+                    }
+                },
+                "other": {
+                    "type": "string"
+                },
+                "packing": {
+                    "type": "string"
+                },
+                "plate_size": {
+                    "type": "string"
+                },
+                "plate_type": {
+                    "type": "string"
+                },
+                "plate_wrapper": {
+                    "type": "string"
+                },
+                "produce_date": {
+                    "type": "string"
+                },
+                "quality": {
+                    "type": "string"
+                },
+                "roll_placement": {
+                    "type": "string"
+                },
+                "salesman": {
+                    "type": "string"
+                },
+                "scheme_date": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "trade_mode": {
+                    "type": "string"
+                },
+                "wrapper": {
+                    "type": "string"
+                },
+                "wrapper_memo": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Response": {
+            "type": "object",
+            "properties": {
+                "content": {},
+                "result": {
+                    "type": "integer"
+                },
+                "result_comment": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpdateBoppOrder": {
+            "type": "object",
+            "properties": {
+                "customer": {
+                    "type": "string"
+                },
+                "deal_date": {
+                    "type": "string"
+                },
+                "delivery_time": {
+                    "type": "string"
+                },
+                "density": {
+                    "type": "number"
+                },
+                "factory": {
+                    "type": "string"
+                },
+                "job_order": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "other": {
+                    "type": "string"
+                },
+                "packing": {
+                    "type": "string"
+                },
+                "plate_size": {
+                    "type": "string"
+                },
+                "plate_type": {
+                    "type": "string"
+                },
+                "plate_wrapper": {
+                    "type": "string"
+                },
+                "produce_date": {
+                    "type": "string"
+                },
+                "quality": {
+                    "type": "string"
+                },
+                "roll_placement": {
+                    "type": "string"
+                },
+                "salesman": {
+                    "type": "string"
+                },
+                "scheme_date": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "trade_mode": {
+                    "type": "string"
+                },
+                "wrapper": {
+                    "type": "string"
+                },
+                "wrapper_memo": {
+                    "type": "string"
+                }
+            }
+        },
+        "repositories.OrderAccessory": {
+            "type": "object",
+            "properties": {
+                "accessory": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "job_order": {
+                    "type": "string"
+                }
+            }
+        },
+        "repositories.OrderDetail": {
+            "type": "object",
+            "properties": {
+                "actual_length": {
+                    "type": "number"
+                },
+                "actual_thickness": {
+                    "type": "number"
+                },
+                "corona": {
+                    "type": "string"
+                },
+                "index": {
+                    "type": "integer"
+                },
+                "job_order": {
+                    "type": "string"
+                },
+                "length": {
+                    "type": "integer"
+                },
+                "rolls": {
+                    "type": "integer"
+                },
+                "scheme_rolls": {
+                    "type": "number"
+                },
+                "thickness": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "width": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
